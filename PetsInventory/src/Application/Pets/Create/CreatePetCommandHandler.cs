@@ -4,6 +4,8 @@ using Domain.Primitives;
 using Domain.ValueObjects;
 using ErrorOr;
 using MediatR;
+using Domain.DomainErrors;
+
 
 namespace Application.Pets.Create;
 
@@ -23,12 +25,12 @@ public sealed class CreatePetCommandHandler : IRequestHandler<CreatePetCommand, 
         
         if (Year.Create(command.BirthDate) is not Year birthDate)
         {
-            return Error.Validation("Pet.Birthdate", "Year is not a valid format");
+            return PetErrors.Pet.YearWithBadFormat;
         }
 
         if (Year.Create(command.DeathDate) is not Year deathDate)
         {
-            return Error.Validation("Pet.Deathdate", "Year is not a valid format");
+            return PetErrors.Pet.YearWithBadFormat;
         }
 
         var pet = new Pet(

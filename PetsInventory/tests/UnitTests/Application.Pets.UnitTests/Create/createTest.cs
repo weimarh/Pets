@@ -6,28 +6,15 @@ using Domain.DomainErrors;
 namespace Application.Pets.UnitTests.Create;
 
 [TestClass]
-public class CreatePetCommandHandlerTests
+public class createTest
 {
-    private readonly Mock<IPetRepository> _mockPetRepository;
-    private readonly Mock<IUnitOfWork> _mockUnitOfWork;
-    private readonly CreatePetCommandHandler _handler;
-
-    public CreatePetCommandHandlerTests(IPetRepository petRepository)
-    {
-        _mockPetRepository = new Mock<IPetRepository>();
-        _mockUnitOfWork = new Mock<IUnitOfWork>();
-        _handler = new CreatePetCommandHandler(_mockUnitOfWork.Object, _mockPetRepository.Object);
-    }
-
-    public CreatePetCommandHandlerTests()
-    {
-        
-    }
 
     [TestMethod]
-    [TestInitialize]
     public async Task HandleCreatePetCommand_WhenYearHasBadFormat_ShouldReturnValidationError()
     {
+        var mockRepositor = new Mock<IPetRepository>();
+        var mockUnitOfWork = new Mock<IUnitOfWork>();
+        var _handler = new CreatePetCommandHandler(mockUnitOfWork.Object, mockRepositor.Object);
         //Arrage
         CreatePetCommand command = new CreatePetCommand(
             "Satuca",

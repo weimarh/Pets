@@ -41,4 +41,29 @@ public sealed class Pet : AggregateRoot
     public bool IsSterilized { get; private set; }
     public Year BirthDate { get; private set; } = null!;
     public Year? DeathDate { get; private set; }
+
+    public static Pet UpdatePet(
+        Guid Id,
+        string Name,
+        Species Species,
+        string Breed,
+        string Color,
+        Sex Sex,
+        bool IsSterilized,
+        Year BirthDate,
+        Year? DeathDate
+    )
+    {
+        return new Pet(
+            new PetId(Id),
+            Name,
+            Species,
+            Breed,
+            Color,
+            Sex,
+            IsSterilized,
+            BirthDate,
+            DeathDate
+        );
+    }
 }
